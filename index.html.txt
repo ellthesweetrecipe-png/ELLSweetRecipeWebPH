@@ -1,133 +1,184 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>thrift.n.drip | Shop</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELL: The Sweet Recipe - Pre-Order Form</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
-<style>
-body { margin:0; font-family: Arial; background:#f5f5f5; }
-header { background:#ee4d2d; color:white; padding:15px; display:flex; justify-content:space-between; align-items:center; }
-header h1 { margin:0; font-size:22px; }
-.search { width:50%; padding:8px; border:none; border-radius:5px; }
-.cart { cursor:pointer; }
-.products { display:grid; grid-template-columns: repeat(auto-fit,minmax(180px,1fr)); gap:15px; padding:15px; }
-.card { background:white; padding:10px; border-radius:8px; }
-.card img { width:100%; }
-.price { color:#ee4d2d; font-weight:bold; }
-.btn { width:100%; padding:8px; border:none; background:#ee4d2d; color:white; margin-top:5px; cursor:pointer; }
-.cart-box { position:fixed; right:0; top:0; width:320px; height:100%; background:white; padding:15px; display:none; overflow:auto; }
-input, textarea { width:100%; padding:8px; margin:5px 0; }
-</style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #fdf6f5;
+            color: #4a3b32;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        h1 {
+            text-align: center;
+            color: #d48c82;
+            margin-bottom: 5px;
+        }
+        p.subtitle {
+            text-align: center;
+            font-size: 14px;
+            color: #7a6b63;
+            margin-bottom: 25px;
+        }
+        .info-box {
+            background-color: #f9ecec;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 13px;
+            margin-bottom: 20px;
+            border-left: 4px solid #d48c82;
+        }
+        label {
+            font-weight: 600;
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+        .radio-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 5px;
+        }
+        .radio-group label {
+            font-weight: 400;
+            display: inline;
+            margin: 0;
+        }
+        .terms {
+            font-size: 12px;
+            margin-top: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        button {
+            width: 100%;
+            background-color: #d48c82;
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: 0.3s;
+        }
+        button:hover {
+            background-color: #b8746a;
+        }
+    </style>
 </head>
-
 <body>
-<header>
-<h1>thrift.n.drip</h1>
-<input type="text" class="search" placeholder="Search items..." onkeyup="searchProduct(this.value)">
-<div class="cart" onclick="toggleCart()">🛒</div>
-</header>
 
-<section class="products" id="productList"></section>
+<div class="container">
+    <h1>ELL: The Sweet Recipe</h1>
+    <p class="subtitle">Official Pre-Order Form</p>
 
-<div class="cart-box" id="cartBox">
-<h2>Checkout</h2>
-<ul id="cartItems"></ul>
-<p><b>Total: ₱<span id="total">0</span></b></p>
+    <div class="info-box">
+        <strong>Pre-Order Schedule:</strong><br>
+        • Cut-off for orders: Every Friday, 5:00 PM<br>
+        • Dispatch / Pick-up Date: Every Sunday<br>
+        • MOP: GCash or Bank Transfer (Details will be sent via email upon submission)
+    </div>
 
-<h3>Order Details</h3>
-<input type="text" id="name" placeholder="Full Name">
-<textarea id="address" placeholder="Address"></textarea>
-<input type="text" id="contact" placeholder="Contact Number">
+    <!-- PALITAN ANG ACTION LINK NG IYONG FORMSPREE LINK -->
+    <form action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+        
+        <!-- Customer Info -->
+        <label for="name">Full Name *</label>
+        <input type="text" id="name" name="name" required placeholder="e.g., Juan Dela Cruz">
 
-<button class="btn" onclick="checkout()">Place Order</button>
-<button class="btn" onclick="gcash()">Pay via GCash</button>
-</div>
+        <label for="email">Email Address *</label>
+        <input type="email" id="email" name="email" required placeholder="juandelacruz@email.com">
 
-<script>
-let products = [];
-let cart = [];
+        <label for="phone">Contact Number *</label>
+        <input type="tel" id="phone" name="phone" required placeholder="09xxxxxxxxx">
 
-function uploadProducts(files){
- const list = document.getElementById("productList");
- for(let file of files){
-  const reader = new FileReader();
-  reader.onload = function(e){
-   products.push({name:file.name, price:199, img:e.target.result});
-   displayProducts();
-  }
-  reader.readAsDataURL(file);
- }
-}
+        <!-- Order Details -->
+        <label for="product">Select Product *</label>
+        <select id="product" name="product" required>
+            <option value="" disabled selected>Choose a baked treat...</option>
+            <option value="Classic Chocolate Chip Cookies (Box of 6)">Classic Chocolate Chip Cookies (Box of 6) - ₱xxx</option>
+            <option value="Fudgy Brownies (Box of 8)">Fudgy Brownies (Box of 8) - ₱xxx</option>
+            <option value="Custom Order">Custom Order (Please specify below)</option>
+        </select>
 
-function displayProducts(){
- const list = document.getElementById("productList");
- list.innerHTML = "";
- products.forEach((p,i)=>{
-  list.innerHTML += `
-  <div class="card">
-    <img src="${p.img}">
-    <h4>${p.name}</h4>
-    <p class="price">₱${p.price}</p>
-    <button class="btn" onclick="addToCart(${i})">Add to Cart</button>
-  </div>`;
- });
-}
+        <label for="quantity">Quantity *</label>
+        <input type="number" id="quantity" name="quantity" min="1" required placeholder="How many boxes?">
 
-function addToCart(i){ cart.push(products[i]); renderCart(); }
+        <label for="requests">Special Requests / Notes</label>
+        <textarea id="requests" name="requests" rows="3" placeholder="Any allergies or special messages?"></textarea>
 
-function renderCart(){
- let total=0;
- const items=document.getElementById("cartItems");
- items.innerHTML="";
- cart.forEach(item=>{
-  items.innerHTML+=`<li>${item.name} - ₱${item.price}</li>`;
-  total+=item.price;
- });
- document.getElementById("total").textContent=total;
-}
+        <!-- Fulfillment Method -->
+        <label>Fulfillment Method *</label>
+        <div class="radio-group">
+            <input type="radio" id="pickup" name="fulfillment" value="Pick-up (Bacoor)" required>
+            <label for="pickup">Pick-up (Bacoor)</label>
+            
+            <input type="radio" id="delivery" name="fulfillment" value="Delivery">
+            <label for="delivery">Delivery (Buyer shoulders fee)</label>
+        </div>
 
-function toggleCart(){
- const box=document.getElementById("cartBox");
- box.style.display = box.style.display==='block'?'none':'block';
-}
+        <label for="address">Delivery Address (If applicable)</label>
+        <input type="text" id="address" name="address" placeholder="Complete address for delivery">
 
-function checkout(){
- const name=document.getElementById("name").value;
- const address=document.getElementById("address").value;
- const contact=document.getElementById("contact").value;
+        <!-- Payment -->
+        <label>Payment Method *</label>
+        <div class="radio-group">
+            <input type="radio" id="gcash" name="payment_method" value="GCash" required>
+            <label for="gcash">GCash</label>
+            
+            <input type="radio" id="bank" name="payment_method" value="Bank Transfer">
+            <label for="bank">Bank Transfer</label>
+        </div>
 
- if(!name || !address || !contact){ alert("Fill all details"); return; }
+        <label for="reference">Payment Reference Number (Optional for now, required upon confirmation)</label>
+        <input type="text" id="reference" name="reference" placeholder="Enter Ref No. if you already paid">
 
- alert("Order placed! Seller will contact you.");
- cart=[]; renderCart();
-}
+        <!-- T&C -->
+        <div class="terms">
+            <input type="checkbox" id="terms" name="terms" required>
+            <label for="terms" style="margin-top: 0; font-weight: 400;">
+                I understand that this is a pre-order and production will begin after the cut-off date. Cancellations are not allowed once payment is confirmed.
+            </label>
+        </div>
 
-function gcash(){
- alert("Send payment to GCash: 09XXXXXXXXX");
-}
+        <!-- Submit -->
+        <button type="submit">Place Pre-Order</button>
 
-function searchProduct(val){
- const filtered = products.filter(p=>p.name.toLowerCase().includes(val.toLowerCase()));
- const list = document.getElementById("productList");
- list.innerHTML="";
- filtered.forEach((p,i)=>{
-  list.innerHTML += `
-  <div class="card">
-    <img src="${p.img}">
-    <h4>${p.name}</h4>
-    <p class="price">₱${p.price}</p>
-    <button class="btn" onclick="addToCart(${i})">Add to Cart</button>
-  </div>`;
- });
-}
-</script>
-
-<!-- Upload Section -->
-<div style="padding:15px;">
-<h3>Upload Your Items</h3>
-<input type="file" multiple onchange="uploadProducts(this.files)">
+    </form>
 </div>
 
 </body>
 </html>
+
+```
