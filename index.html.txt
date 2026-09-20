@@ -1,0 +1,226 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELL: The Sweet Recipe - Pre-Order Form</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #fdf6f5;
+            color: #4a3b32;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        h1 {
+            text-align: center;
+            color: #d48c82;
+            margin-bottom: 5px;
+        }
+        p.subtitle {
+            text-align: center;
+            font-size: 14px;
+            color: #7a6b63;
+            margin-bottom: 25px;
+        }
+        .info-box {
+            background-color: #f9ecec;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 13px;
+            margin-bottom: 20px;
+            border-left: 4px solid #d48c82;
+        }
+        label {
+            font-weight: 600;
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+        .radio-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 5px;
+        }
+        .radio-group label {
+            font-weight: 400;
+            display: inline;
+            margin: 0;
+        }
+        .terms {
+            font-size: 12px;
+            margin-top: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        button {
+            width: 100%;
+            background-color: #d48c82;
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: 0.3s;
+        }
+        button:hover {
+            background-color: #b8746a;
+        }
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        .error-text {
+            color: red;
+            font-size: 12px;
+            margin-top: 4px;
+            display: block;
+        }
+        
+        /* Ito ang style para sa success message na lalabas after mag-submit */
+        div[data-fs-success] {
+            display: none;
+            background-color: #d4edda;
+            color: #155724;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            border: 1px solid #c3e6cb;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>ELL: The Sweet Recipe</h1>
+    <p class="subtitle">Official Pre-Order Form</p>
+
+    <!-- Success Message (Lalabas lang pag na-send na ang form) -->
+    <div data-fs-success>
+        <strong>Thank you for your pre-order! 🍪</strong><br>
+        We have received your details. Please wait for our confirmation email regarding payment and delivery.
+    </div>
+
+    <!-- Form-level Error Message -->
+    <div data-fs-error style="color: red; margin-bottom: 15px; text-align: center;"></div>
+
+    <div class="info-box">
+        <strong>Pre-Order Schedule:</strong><br>
+        • Cut-off for orders: Every Friday, 5:00 PM<br>
+        • Dispatch / Pick-up Date: Every Sunday<br>
+        • MOP: GCash or Bank Transfer
+    </div>
+
+    <form id="pre-order-form">
+        
+        <!-- Customer Info -->
+        <label for="name">Full Name *</label>
+        <input type="text" id="name" name="name" required placeholder="e.g., Juan Dela Cruz" data-fs-field>
+        <span class="error-text" data-fs-error="name"></span>
+
+        <label for="email">Email Address *</label>
+        <input type="email" id="email" name="email" required placeholder="juandelacruz@email.com" data-fs-field>
+        <span class="error-text" data-fs-error="email"></span>
+
+        <label for="phone">Contact Number *</label>
+        <input type="tel" id="phone" name="phone" required placeholder="09xxxxxxxxx" data-fs-field>
+        <span class="error-text" data-fs-error="phone"></span>
+
+        <!-- Order Details -->
+        <label for="product">Select Product *</label>
+        <select id="product" name="product" required data-fs-field>
+            <option value="" disabled selected>Choose a baked treat...</option>
+            <option value="Classic Chocolate Chip Cookies (Box of 6)">Classic Chocolate Chip Cookies (Box of 6)</option>
+            <option value="Fudgy Brownies (Box of 8)">Fudgy Brownies (Box of 8)</option>
+            <option value="Custom Order">Custom Order (Please specify below)</option>
+        </select>
+        <span class="error-text" data-fs-error="product"></span>
+
+        <label for="quantity">Quantity *</label>
+        <input type="number" id="quantity" name="quantity" min="1" required placeholder="How many boxes?" data-fs-field>
+        <span class="error-text" data-fs-error="quantity"></span>
+
+        <label for="requests">Special Requests / Notes</label>
+        <textarea id="requests" name="requests" rows="3" placeholder="Any allergies or special messages?" data-fs-field></textarea>
+
+        <!-- Fulfillment Method -->
+        <label>Fulfillment Method *</label>
+        <div class="radio-group">
+            <input type="radio" id="pickup" name="fulfillment" value="Pick-up (Bacoor)" required data-fs-field>
+            <label for="pickup">Pick-up (Bacoor)</label>
+            
+            <input type="radio" id="delivery" name="fulfillment" value="Delivery" data-fs-field>
+            <label for="delivery">Delivery (Buyer shoulders fee)</label>
+        </div>
+        <span class="error-text" data-fs-error="fulfillment"></span>
+
+        <label for="address">Delivery Address (If applicable)</label>
+        <input type="text" id="address" name="address" placeholder="Complete address for delivery" data-fs-field>
+
+        <!-- Payment -->
+        <label>Payment Method *</label>
+        <div class="radio-group">
+            <input type="radio" id="gcash" name="payment_method" value="GCash" required data-fs-field>
+            <label for="gcash">GCash</label>
+            
+            <input type="radio" id="bank" name="payment_method" value="Bank Transfer" data-fs-field>
+            <label for="bank">Bank Transfer</label>
+        </div>
+        <span class="error-text" data-fs-error="payment_method"></span>
+
+        <!-- T&C -->
+        <div class="terms">
+            <input type="checkbox" id="terms" name="terms" required data-fs-field>
+            <label for="terms" style="margin-top: 0; font-weight: 400;">
+                I understand that this is a pre-order and production will begin after the cut-off date. Cancellations are not allowed once payment is confirmed.
+            </label>
+        </div>
+        <span class="error-text" data-fs-error="terms"></span>
+
+        <!-- Submit -->
+        <button type="submit" data-fs-submit-btn>Place Pre-Order</button>
+
+    </form>
+</div>
+
+<!-- Formspree Script Setup -->
+<script>
+    window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
+    formspree('initForm', { formElement: '#pre-order-form', formId: 'mbgldyrq' });
+</script>
+<script src="https://unpkg.com/@formspree/ajax@1" defer></script>
+
+</body>
+</html>
+
+```
