@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELL: The Sweet Recipe - Pre-Order Form</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #fdf6f5;
+            color: #4a3b32;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        h1 {
+            text-align: center;
+            color: #d48c82;
+            margin-bottom: 5px;
+        }
+        p.subtitle {
+            text-align: center;
+            font-size: 14px;
+            color: #7a6b63;
+            margin-bottom: 25px;
+        }
+        .info-box {
+            background-color: #f9ecec;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 13px;
+            margin-bottom: 20px;
+            border-left: 4px solid #d48c82;
+        }
+        .payment-box {
+            background-color: #f9ecec;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 13px;
+            margin-top: 10px;
+            margin-bottom: 15px;
+            border-left: 4px solid #d48c82;
+            line-height: 1.6;
+        }
+        .custom-note {
+            background-color: #fff8f8;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            margin-top: 15px;
+            border: 1px dashed #d48c82;
+            text-align: center;
+        }
+        label {
+            font-weight: 600;
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+        .radio-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 5px;
+        }
+        .radio-group label {
+            font-weight: 400;
+            display: inline;
+            margin: 0;
+        }
+        .terms {
+            font-size: 12px;
+            margin-top: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        button {
+            width: 100%;
+            background-color: #d48c82;
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: 0.3s;
+        }
+        button:hover {
+            background-color: #b8746a;
+        }
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        #success-message {
+            display: none;
+            background-color: #d4edda;
+            color: #155724;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            border: 1px solid #c3e6cb;
+        }
+        #error-message {
+            display: none;
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>ELL: The Sweet Recipe</h1>
+    <p class="subtitle">Official Pre-Order Form</p>
+
+    <!-- Success Message Box -->
+    <div id="success-message">
+        <strong>Thank you for your pre-order! 🍪</strong><br>
+        We have received your details. Please check your email for confirmation and payment instructions.
+    </div>
+
+    <!-- Error Message Box -->
+    <div id="error-message">
+        Oops! There was a problem submitting your form. Please try again.
+    </div>
+
+    <div class="info-box">
+        <strong>Pre-Order Schedule:</strong><br>
+        • Cut-off for orders: Every Friday, 5:00 PM<br>
+        • Dispatch / Pick-up Date: Every Sunday<br>
+        • Mode of Payment: GCash Only
+    </div>
+
+    <form id="pre-order-form" action="https://formspree.io/f/mbgldyrq" method="POST">
+        
+        <!-- Customer Info -->
+        <label for="name">Full Name *</label>
+        <input type="text" id="name" name="name" required placeholder="e.g., Juan Dela Cruz">
+
+        <label for="email">Email Address *</label>
+        <input type="email" id="email" name="email" required placeholder="juandelacruz@email.com">
+
+        <label for="phone">Contact Number *</label>
+        <input type="tel" id="phone" name="phone" required placeholder="09xxxxxxxxx">
+
+        <!-- Order Details -->
+        <label for="product">Select Product *</label>
+        <select id="product" name="product" required>
+            <option value="" disabled selected>Choose a baked treat...</option>
+            <option value="Yema Cake - ₱70 per tub">Yema Cake - ₱70 per tub</option>
+            <option value="Banana Cake - ₱130 per tub">Banana Cake - ₱130 per tub</option>
+            <option value="Chocolate Moist Crinkles - ₱140 (4pcs, 50g each)">Chocolate Moist Crinkles - ₱140 (4pcs, 50g each)</option>
+            <option value="Chocolate Decadent Cake - ₱110">Chocolate Decadent Cake - ₱110</option>
+        </select>
+
+        <!-- Custom Orders Notice -->
+        <div class="custom-note">
+            Looking for <strong>Customize Cakes</strong>? <br>
+            Message us on our Facebook & Instagram: <strong>ELL: The Sweet Recipe</strong>
+        </div>
+
+        <label for="quantity">Quantity *</label>
+        <input type="number" id="quantity" name="quantity" min="1" required placeholder="How many tubs/boxes?">
+
+        <label for="requests">Special Requests / Notes</label>
+        <textarea id="requests" name="requests" rows="3" placeholder="Any allergies or special instructions?"></textarea>
+
+        <!-- Fulfillment Method -->
+        <label>Fulfillment Method *</label>
+        <div class="radio-group">
+            <input type="radio" id="pickup" name="fulfillment" value="Pick-up (Bacoor)" required>
+            <label for="pickup">Pick-up (Bacoor)</label>
+            
+            <input type="radio" id="delivery" name="fulfillment" value="Delivery">
+            <label for="delivery">Delivery (Buyer shoulders fee)</label>
+        </div>
+
+        <label for="address">Delivery Address (If applicable)</label>
+        <input type="text" id="address" name="address" placeholder="Complete address for delivery">
+
+        <!-- Payment Section -->
+        <label>Payment Method *</label>
+        <div class="radio-group">
+            <input type="radio" id="gcash" name="payment_method" value="GCash" checked required>
+            <label for="gcash">GCash</label>
+        </div>
+
+        <div class="payment-box">
+            <strong>GCash Payment Details:</strong><br>
+            • Number: <strong>09214274279</strong><br>
+            • Name: <strong>MA*K JO***A C.</strong>
+        </div>
+
+        <label for="reference">GCash Reference Number *</label>
+        <input type="text" id="reference" name="reference" required placeholder="Enter your 13-digit reference number">
+
+        <!-- T&C -->
+        <div class="terms">
+            <input type="checkbox" id="terms" name="terms" required>
+            <label for="terms" style="margin-top: 0; font-weight: 400;">
+                I understand that this is a pre-order and production will begin after the cut-off date. Cancellations are not allowed once payment is confirmed.
+            </label>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" id="submit-btn">Place Pre-Order</button>
+
+    </form>
+</div>
+
+<script>
+    var form = document.getElementById("pre-order-form");
+    
+    async function handleSubmit(event) {
+        event.preventDefault();
+        var status = document.getElementById("success-message");
+        var errorStatus = document.getElementById("error-message");
+        var btn = document.getElementById("submit-btn");
+        
+        btn.disabled = true;
+        btn.innerText = "Submitting...";
+        
+        var data = new FormData(event.target);
+        
+        fetch(event.target.action, {
+            method: form.method,
+            body: data,
+            headers: {
+                'Accept': 'application/json'
+            }
+        }).then(response => {
+            if (response.ok) {
+                status.style.display = "block";
+                errorStatus.style.display = "none";
+                form.reset();
+                btn.style.display = "none"; 
+            } else {
+                response.json().then(data => {
+                    if (Object.hasOwn(data, 'errors')) {
+                        errorStatus.innerText = data["errors"].map(error => error["message"]).join(", ");
+                    } else {
+                        errorStatus.innerText = "Oops! There was a problem submitting your form";
+                    }
+                    errorStatus.style.display = "block";
+                    btn.disabled = false;
+                    btn.innerText = "Place Pre-Order";
+                })
+            }
+        }).catch(error => {
+            errorStatus.innerText = "Oops! There was a problem submitting your form";
+            errorStatus.style.display = "block";
+            btn.disabled = false;
+            btn.innerText = "Place Pre-Order";
+        });
+    }
+    
+    form.addEventListener("submit", handleSubmit);
+</script>
+
+</body>
+</html>
